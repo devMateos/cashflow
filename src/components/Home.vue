@@ -48,7 +48,7 @@ let movements = [
     id: 2,
     title: 'Movimiento 3',
     description: 'Lorem ipsum dolor sit amet',
-    amount: 1000,
+    amount: -1000,
   }, {
     id: 3,
     title: 'Movimiento 4',
@@ -63,7 +63,7 @@ let movements = [
     id: 5,
     title: 'Movimiento 6',
     description: 'Lorem ipsum dolor sit amet',
-    amount: 1000,
+    amount: -1000,
   }, {
     id: 6,
     title: 'Movimiento 7',
