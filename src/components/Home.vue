@@ -13,7 +13,7 @@
         graphic
       </template>
       <template #action>
-        action
+        <Action/>
       </template>
     </Resume>
     </template>
@@ -30,6 +30,7 @@ import Header from './Header.vue';
 import Layout from './Layout.vue';
 import Resume from './Resume/Index.vue';
 import Movements from './Movements/Index.vue';
+import Action from './Action.vue';
 
 let label = null;
 let amount = null;
