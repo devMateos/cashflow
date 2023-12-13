@@ -10,7 +10,7 @@
       :amount="amount"
       >
       <template #graphic>
-        graphic
+        <Graphic :amounts="amounts"/>
       </template>
       <template #action>
         <Action/>
@@ -31,6 +31,7 @@ import Layout from './Layout.vue';
 import Resume from './Resume/Index.vue';
 import Movements from './Movements/Index.vue';
 import Action from './Action.vue';
+import Graphic from './Resume/Graphic.vue';
 
 let label = null;
 let amount = null;
@@ -81,6 +82,9 @@ let movements = [
     description: 'Lorem ipsum dolor sit amet',
     amount: 1000,
   },
-]
+];
+
+let amounts = [100, 200, 500, 200, -400, -600, -300, 0, 300, 500];
+
 </script>
   
