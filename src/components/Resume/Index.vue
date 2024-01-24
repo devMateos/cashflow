@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
   label: {
@@ -13,7 +13,7 @@ const props = defineProps({
     default: null,
   },
   date: {
-    type: Date,
+    type: String,
   }
 });
 
