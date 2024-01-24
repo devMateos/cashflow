@@ -26,7 +26,14 @@ let formattedDate = `${day}/${month}/${year}`;
         :total-amount="1000000"
         :amount="amount"
         :date="formattedDate"
-      />
+      >
+        <template #graphic>
+          graphic
+        </template>
+        <template #action>
+          action
+        </template>
+      </Resume>
     </template>
     <template #movements>
       <Movements/>

@@ -23,12 +23,26 @@ const labelVisual = computed(() => {
 const amountVisual = computed(() => {
   return props.amount !== null ? props.amount : props.totalAmount;
 });
+
+const currencyFormatter = new Intl.NumberFormat("es-ES", {
+  style: "currency",
+  currency: "EUR",
+});
+const amountCurrency = computed(() => {
+  return currencyFormatter.format(amountVisual.value);
+})
 </script>
 
 <template>
   <main>
     <p>{{ labelVisual }}</p>
-    <h1>{{ amountVisual }}</h1>
+    <h1>{{ amountCurrency }}</h1>
+    <div class="graphic">
+      <slot name="graphic"></slot>
+    </div>
+    <div class="action">
+      <slot name="action"></slot>
+    </div>
   </main>
 </template>
 
