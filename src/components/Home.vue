@@ -4,6 +4,16 @@ import Layout from './Layout.vue';
 import Resume from './Resume/Index.vue';
 import Movements from './Movements.vue';
 
+let amount = null;
+let label = null;
+
+/* Date */
+let todayDate = new Date();
+let day = ('0' + todayDate.getDate()).slice(-2);
+let month = ('0' + (todayDate.getMonth() + 1)).slice(-2);
+let year = todayDate.getFullYear();
+
+let formattedDate = `${day}/${month}/${year}`;
 </script>
 <template>
   <Layout>
@@ -11,7 +21,12 @@ import Movements from './Movements.vue';
       <Header/>
     </template>
     <template #resume>
-      <Resume/>
+      <Resume
+        :label="label"
+        :total-amount="1000000"
+        :amount="amount"
+        :date="formattedDate"
+      />
     </template>
     <template #movements>
       <Movements/>
