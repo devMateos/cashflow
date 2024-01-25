@@ -70,6 +70,10 @@ let movements = [{
   description: "Lorem ipsum dolor sit amet",
   amount: 1000,
 }];
+
+/* Amounts */
+const amounts = [100, 200, 500, 200, -400, -600, -300, 0, 300, 500];
+
 </script>
 <template>
   <Layout>
@@ -84,7 +88,7 @@ let movements = [{
         :date="formattedDate"
       >
         <template #graphic>
-          <Graphic/>
+          <Graphic :amounts="amounts"/>
         </template>
         <template #action>
           <Action/>

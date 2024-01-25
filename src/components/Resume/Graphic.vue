@@ -1,3 +1,32 @@
+<script setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  amounts: {
+    type: Array,
+    default: () => [],
+  }
+});
+
+const amountToPixels = () => {
+  const min = Math.min(...props.amounts);
+  const max = Math.max(...props.amounts);
+  return `${min}, ${max}`;
+}
+
+const points = computed(() => {
+  const total = props.amounts.length;
+  return Array(total).fill(100).reduce((points, amount, i) => {
+    const x = (300 / total) * (i + 1);
+    const y = amountToPixels(amount);
+    console.log(y);
+    return `${points} ${x},${y}`;
+  }, "0, 100")
+  
+  
+})
+</script>
+
 <template>
   <div>
     <svg
@@ -15,7 +44,7 @@
         fill="none"
         stroke="#0689B0"
         stroke-width="2"
-        points="0,0 100,100 200,100 300,200"
+        :points="points"
       />
       <line
         stroke="#04b500"
@@ -27,6 +56,7 @@
       />
     </svg>
     <p>Últimos 30 días</p>
+    <div>{{ points }}</div>
   </div>
 </template>
 
