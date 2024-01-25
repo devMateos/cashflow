@@ -2,14 +2,49 @@
 import { ref } from 'vue'
 import Modal from './Modal.vue';
 
-let showModal = ref(false);
+const showModal = ref(false);
+
+const title = ref("");
+const amount = ref(0);
+const description = ref("");
+const movementType = ref("Ingreso");
+
+const submit = () => {
+  showModal.value = !showModal.value;
+}
 </script>
 
 <template>
   <button @click="showModal = true">Agregar Movimiento</button>
   <teleport to='#app'>
     <Modal v-show="showModal" @close="showModal = false">
-      Aquí formulario
+      <form @submit.prevent="submit">
+        <div class="field">
+          <label>Título</label>
+          <input type="text" v-model="title">
+        </div>
+        <div class="field">
+          <label>Cantidad</label>
+          <input type="number" v-model="amount">
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <textarea rows="4" v-model="description"></textarea>
+        </div>
+        <div class="field">
+          <label class="radio-label">
+            <input type="radio" v-model="movementType" value="Ingreso">
+            <span>Ingreso</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" v-model="movementType" value="Gasto">
+            <span>Gasto</span>
+          </label>
+        </div>
+        <div>
+          <button>Agregar movimiento</button>
+        </div>
+      </form>
     </Modal>
   </teleport>
 </template>
