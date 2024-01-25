@@ -4,6 +4,7 @@ import Layout from './Layout.vue';
 import Resume from './Resume/Index.vue';
 import Movements from './Movements/Index.vue';
 import Action from './Action.vue';
+import Graphic from './Resume/Graphic.vue';
 
 /* Amount & label */
 let amount = null;
@@ -83,7 +84,7 @@ let movements = [{
         :date="formattedDate"
       >
         <template #graphic>
-          graphic
+          <Graphic/>
         </template>
         <template #action>
           <Action/>
