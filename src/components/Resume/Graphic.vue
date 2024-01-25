@@ -8,15 +8,19 @@ const props = defineProps({
   }
 });
 
-const amountToPixels = () => {
+const amountToPixels = (amount) => {
   const min = Math.min(...props.amounts);
   const max = Math.max(...props.amounts);
-  return `${min}, ${max}`;
+  return 200 - ((amount - min) / Math.abs(max - min)) * 200;
 }
+
+const zero = computed(() => {
+  return amountToPixels(0);
+})
 
 const points = computed(() => {
   const total = props.amounts.length;
-  return Array(total).fill(100).reduce((points, amount, i) => {
+  return props.amounts.reduce((points, amount, i) => {
     const x = (300 / total) * (i + 1);
     const y = amountToPixels(amount);
     console.log(y);
@@ -36,9 +40,9 @@ const points = computed(() => {
         stroke="#c4c4c4"
         stroke-width="2"
         x1="0"
-        y1="100"
+        :y1="zero"
         x2="300"
-        y2="100"
+        :y2="zero"
       />
       <polyline
         fill="none"
@@ -56,7 +60,6 @@ const points = computed(() => {
       />
     </svg>
     <p>Últimos 30 días</p>
-    <div>{{ points }}</div>
   </div>
 </template>
 
