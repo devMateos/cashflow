@@ -6,7 +6,7 @@ import Movements from './Movements/Index.vue';
 import Action from './Action.vue';
 import Graphic from './Resume/Graphic.vue';
 
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 /* Amount & label */
 let amount = null;
@@ -21,7 +21,7 @@ let year = todayDate.getFullYear();
 let formattedDate = `${day}/${month}/${year}`;
 
 /* movements */
-let movements = [{
+let movements = ref([{
   id: 0,
   title: "Movimiento 1",
   description: "Lorem ipsum dolor sit amet",
@@ -81,10 +81,10 @@ let movements = [{
   description: "Lorem ipsum dolor sit amet",
   amount: 500,
   time: new Date("12-25-2023"),
-}];
+}]);
 
 const amounts = computed(() => {
-  const lastDays = movements
+  const lastDays = movements.value
     .filter(m => {
       const today = new Date();
       const oldDate = today.setDate(today.getDate() - 30);
@@ -101,6 +101,16 @@ const amounts = computed(() => {
       }, 0);
     });
 })
+
+function create(movement) {
+  movements.value.push(movement);
+  console.log(movements);
+};
+
+function remove(id) {
+  const index = movements.value.findIndex(m => m.id === id);
+  movements.value.splice(index, 1);
+}
 </script>
 <template>
   <Layout>
@@ -118,13 +128,14 @@ const amounts = computed(() => {
           <Graphic :amounts="amounts"/>
         </template>
         <template #action>
-          <Action/>
+          <Action @create="create"/>
         </template>
       </Resume>
     </template>
     <template #movements>
       <Movements
         :movements="movements"
+        @remove="remove"
       />
     </template>
   </Layout>
