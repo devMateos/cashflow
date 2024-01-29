@@ -23,13 +23,15 @@ const points = computed(() => {
   return props.amounts.reduce((points, amount, i) => {
     const x = (300 / total) * (i + 1);
     const y = amountToPixels(amount);
-    console.log(y);
+
     return `${points} ${x},${y}`;
   }, "0, 100")
 });
 
 const showPointer = ref(false);
 const pointer = ref(0);
+
+const emit = defineEmits(["select"]);
 
 const tap = ({ target, touches }) => {
   showPointer.value = true;
