@@ -6,7 +6,7 @@ import Movements from './Movements/Index.vue';
 import Action from './Action.vue';
 import Graphic from './Resume/Graphic.vue';
 
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 /* Amount & label */
 let amount = null;
@@ -21,67 +21,7 @@ let year = todayDate.getFullYear();
 let formattedDate = `${day}/${month}/${year}`;
 
 /* movements */
-let movements = ref([{
-  id: 0,
-  title: "Movimiento 1",
-  description: "Lorem ipsum dolor sit amet",
-  amount: 100,
-  time: new Date("01-01-2024"),
-}, {
-  id: 1,
-  title: "Movimiento 2",
-  description: "Lorem ipsum dolor sit amet",
-  amount: 200,
-  time: new Date("01-01-2024"),
-}, {
-  id: 2,
-  title: "Movimiento 3",
-  description: "Lorem ipsum dolor sit amet",
-  amount: 500,
-  time: new Date("01-01-2024"),
-}, {
-  id: 3,
-  title: "Movimiento 4",
-  description: "Lorem ipsum dolor sit amet",
-  amount: 200,
-  time: new Date("01-01-2024"),
-}, {
-  id: 4,
-  title: "Movimiento 5",
-  description: "Lorem ipsum dolor sit amet",
-  amount: -400,
-  time: new Date("01-01-2024"),
-}, {
-  id: 5,
-  title: "Movimiento 6",
-  description: "Lorem ipsum dolor sit amet",
-  amount: -600,
-  time: new Date("01-01-2024"),
-}, {
-  id: 6,
-  title: "Movimiento 7",
-  description: "Lorem ipsum dolor sit amet",
-  amount: -300,
-  time: new Date("01-01-2024"),
-}, {
-  id: 7,
-  title: "Movimiento 8",
-  description: "Lorem ipsum dolor sit amet",
-  amount: 0,
-  time: new Date("01-01-2024"),
-}, {
-  id: 8,
-  title: "Movimiento 9",
-  description: "Lorem ipsum dolor sit amet",
-  amount: 300,
-  time: new Date("12-25-2023"),
-}, {
-  id: 9,
-  title: "Movimiento 10",
-  description: "Lorem ipsum dolor sit amet",
-  amount: 500,
-  time: new Date("12-25-2023"),
-}]);
+let movements = ref([]);
 
 const amounts = computed(() => {
   const lastDays = movements.value
@@ -102,15 +42,40 @@ const amounts = computed(() => {
     });
 })
 
+const totalAmount = computed(() => {
+  return movements.value.reduce((sum, m) => {
+    console.log(m.amount);
+    return sum + m.amount;
+  }, 0);
+});
+
+onMounted(() => {
+  const movementsFromLocalStorage = JSON.parse(localStorage.getItem("movements"));
+
+  if(Array.isArray(movementsFromLocalStorage)) {
+
+    movements.value = movementsFromLocalStorage.map(m => {
+      return { ...m, time: new Date(m.time) };
+    });
+  }
+})
+
+
 function create(movement) {
   movements.value.push(movement);
-  console.log(movements);
+  save();
 };
 
 function remove(id) {
   const index = movements.value.findIndex(m => m.id === id);
   movements.value.splice(index, 1);
+  save();
 }
+
+function save() {
+  localStorage.setItem("movements", JSON.stringify(movements.value));
+}
+
 </script>
 <template>
   <Layout>
@@ -120,7 +85,7 @@ function remove(id) {
     <template #resume>
       <Resume
         :label="label"
-        :total-amount="1000000"
+        :total-amount="totalAmount"
         :amount="amount"
         :date="formattedDate"
       >

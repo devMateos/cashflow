@@ -11,7 +11,10 @@ const props = defineProps({
 const amountToPixels = (amount) => {
   const min = Math.min(...props.amounts);
   const max = Math.max(...props.amounts);
-  return 200 - ((amount - min) / Math.abs(max - min)) * 200;
+  
+  const amountAbs = amount + Math.abs(min);
+  const minmax = Math.abs(max) + Math.abs(min);
+  return 200 - ((amountAbs * 100) / minmax) * 2;
 };
 
 const zero = computed(() => {
@@ -19,13 +22,13 @@ const zero = computed(() => {
 });
 
 const points = computed(() => {
-  const total = props.amounts.length;
+  const total = props.amounts.length - 1;
   return props.amounts.reduce((points, amount, i) => {
-    const x = (300 / total) * (i + 1);
+    const x = (300 / total) * i;
     const y = amountToPixels(amount);
 
     return `${points} ${x},${y}`;
-  }, "0, 100")
+  }, "")
 });
 
 const showPointer = ref(false);
