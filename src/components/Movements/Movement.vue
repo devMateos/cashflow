@@ -1,36 +1,35 @@
 <script setup>
 import { computed } from 'vue'
 
-const currencyFormatter = new Intl.NumberFormat("es-ES", {
-  style: "currency",
-  currency: "EUR",
-});
+const currencyFormatter = new Intl.NumberFormat('es-ES', {
+  style: 'currency',
+  currency: 'EUR'
+})
 
 const props = defineProps({
   id: {
-    type: Number,
+    type: Number
   },
   title: {
-    type: String,
+    type: String
   },
   description: {
-    type: String,
+    type: String
   },
   amount: {
-    type: Number,
-  },
-});
+    type: Number
+  }
+})
 
-const amountCurrency = computed(() => currencyFormatter.format(props.amount));
+const amountCurrency = computed(() => currencyFormatter.format(props.amount))
 
-const isNegative = computed(() => props.amount < 0);
+const isNegative = computed(() => props.amount < 0)
 
-const emit = defineEmits(["remove"]);
+const emit = defineEmits(['remove'])
 
 const remove = () => {
-  emit("remove", props.id);
+  emit('remove', props.id)
 }
-
 </script>
 
 <template>
@@ -40,11 +39,15 @@ const remove = () => {
       <p>{{ description }}</p>
     </div>
     <div class="action">
-      <img src="@/assets/icon/trash-icon.svg" alt="borrar" @click="remove">
-      <p :class="{
-        'red': isNegative,
-        'green': !isNegative
-      }">{{ amountCurrency }}</p>
+      <img src="@/assets/icon/trash-icon.svg" alt="borrar" @click="remove" />
+      <p
+        :class="{
+          red: isNegative,
+          green: !isNegative
+        }"
+      >
+        {{ amountCurrency }}
+      </p>
     </div>
   </div>
 </template>
@@ -81,9 +84,9 @@ h4 {
   margin-bottom: 16px;
 }
 .red {
-    color: red;
+  color: red;
 }
 .green {
-    color: green;
+  color: green;
 }
 </style>

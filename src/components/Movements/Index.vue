@@ -1,34 +1,34 @@
 <script setup>
-import Movement from './Movement.vue';
+import Movement from './Movement.vue'
 
 defineProps({
   movements: {
     type: Array,
-    default: () => [],
+    default: () => []
   }
-});
+})
 
-const emit = defineEmits(["remove"]);
+const emit = defineEmits(['remove'])
 
 const remove = (id) => {
-  emit("remove", id);
-};
+  emit('remove', id)
+}
 </script>
 
 <template>
   <div class="movements">
-      <h2 class="title">Historial</h2>
-      <div class="content">
-          <Movement
-              v-for="{ id, title, description, amount } in movements"
-              :key="id"
-              :id="id"
-              :title="title"
-              :description="description"
-              :amount="amount"
-              @remove="remove"
-          />
-      </div>
+    <h2 class="title">Historial</h2>
+    <div class="content">
+      <Movement
+        v-for="{ id, title, description, amount } in movements"
+        :key="id"
+        :id="id"
+        :title="title"
+        :description="description"
+        :amount="amount"
+        @remove="remove"
+      />
+    </div>
   </div>
 </template>
 

@@ -1,44 +1,44 @@
 <script setup>
 import { ref } from 'vue'
-import Modal from './Modal.vue';
+import Modal from './Modal.vue'
 
-const showModal = ref(false);
+const showModal = ref(false)
 
-const title = ref("");
-const amount = ref(0);
-const description = ref("");
-const movementType = ref("Ingreso");
+const title = ref('')
+const amount = ref(0)
+const description = ref('')
+const movementType = ref('Ingreso')
 
-const emit = defineEmits(["create"]);
+const emit = defineEmits(['create'])
 
 const submit = () => {
-  showModal.value = !showModal.value;
-  emit("create", {
+  showModal.value = !showModal.value
+  emit('create', {
     title: title.value,
     description: description.value,
-    amount: movementType.value === "Ingreso" ? amount.value : -amount.value,
+    amount: movementType.value === 'Ingreso' ? amount.value : -amount.value,
     time: new Date(),
-    id: new Date(),
-  });
-  title.value = "";
-  description.value = "";
-  amount.value = 0;
-  movementType.value = "Ingreso";
-};
+    id: new Date()
+  })
+  title.value = ''
+  description.value = ''
+  amount.value = 0
+  movementType.value = 'Ingreso'
+}
 </script>
 
 <template>
   <button @click="showModal = true">Agregar Movimiento</button>
-  <teleport to='#app'>
+  <teleport to="#app">
     <Modal v-show="showModal" @close="showModal = false">
       <form @submit.prevent="submit">
         <div class="field">
           <label>Título</label>
-          <input type="text" v-model="title">
+          <input type="text" v-model="title" />
         </div>
         <div class="field">
           <label>Cantidad</label>
-          <input type="number" v-model="amount">
+          <input type="number" v-model="amount" />
         </div>
         <div class="field">
           <label>Description</label>
@@ -46,11 +46,11 @@ const submit = () => {
         </div>
         <div class="field">
           <label class="radio-label">
-            <input type="radio" v-model="movementType" value="Ingreso">
+            <input type="radio" v-model="movementType" value="Ingreso" />
             <span>Ingreso</span>
           </label>
           <label class="radio-label">
-            <input type="radio" v-model="movementType" value="Gasto">
+            <input type="radio" v-model="movementType" value="Gasto" />
             <span>Gasto</span>
           </label>
         </div>
@@ -102,7 +102,7 @@ textarea {
   padding: 8px;
 }
 
-input[type="number"] {
+input[type='number'] {
   text-align: right;
 }
 
@@ -117,7 +117,7 @@ input[type="number"] {
   margin-left: 8px;
 }
 
-input[type="radio"] {
+input[type='radio'] {
   appearance: none;
   width: 1.24rem;
   height: 1.24rem;
@@ -126,7 +126,7 @@ input[type="radio"] {
   border-radius: 50%;
 }
 
-input[type="radio"]:checked {
+input[type='radio']:checked {
   background-color: var(--brand-blue);
 }
 </style>

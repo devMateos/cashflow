@@ -1,35 +1,35 @@
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const props = defineProps({
   label: {
-    type: String,
+    type: String
   },
   totalAmount: {
-    type: Number,
+    type: Number
   },
   amount: {
     type: Number,
-    default: null,
+    default: null
   },
   date: {
-    type: String,
+    type: String
   }
-});
+})
 
 const labelVisual = computed(() => {
   return props.label !== null ? props.label : props.date
-});
+})
 const amountVisual = computed(() => {
-  return props.amount !== null ? props.amount : props.totalAmount;
-});
+  return props.amount !== null ? props.amount : props.totalAmount
+})
 
-const currencyFormatter = new Intl.NumberFormat("es-ES", {
-  style: "currency",
-  currency: "EUR",
-});
+const currencyFormatter = new Intl.NumberFormat('es-ES', {
+  style: 'currency',
+  currency: 'EUR'
+})
 const amountCurrency = computed(() => {
-  return currencyFormatter.format(amountVisual.value);
+  return currencyFormatter.format(amountVisual.value)
 })
 </script>
 

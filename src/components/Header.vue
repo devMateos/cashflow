@@ -1,15 +1,11 @@
 <script setup>
 function reload() {
-  location.reload();
+  location.reload()
 }
 </script>
 <template>
   <header>
-    <img
-      @click="reload"
-      src="@/assets/icon/cashflow-icon.svg"
-      alt="Logo"
-    />
+    <img @click="reload" src="@/assets/icon/cashflow-icon.svg" alt="Logo" />
     <h1><span>Cash</span>Flow</h1>
     <span></span>
   </header>

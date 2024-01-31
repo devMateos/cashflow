@@ -1,14 +1,14 @@
 <script setup>
-const emit = defineEmits(["close"]);
+const emit = defineEmits(['close'])
 
-const close = () => emit("close");
+const close = () => emit('close')
 </script>
 
 <template>
   <div class="modal">
     <div class="head">
       <p>Nuevo movimiento</p>
-      <img @click="close" src="@/assets/icon/close-icon.svg" alt="cerrar">
+      <img @click="close" src="@/assets/icon/close-icon.svg" alt="cerrar" />
     </div>
     <div class="body">
       <slot></slot>
