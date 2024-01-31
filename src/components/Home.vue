@@ -20,6 +20,7 @@ let year = todayDate.getFullYear();
 
 let formattedDate = `${day}/${month}/${year}`;
 
+let dateLabel = ref(formattedDate);
 /* movements */
 let movements = ref([]);
 
@@ -75,10 +76,24 @@ function save() {
   localStorage.setItem("movements", JSON.stringify(movements.value));
 }
 
-function select(el) {
+const select = (selectedAmount, index) => {
+  amount.value = selectedAmount;
+
+  const dateString = movements.value[index].time.toLocaleString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+  });
+  dateLabel.value = dateString;
+  console.log(amount.value, dateLabel.value);
+};
+
+/* function select(el) {
   console.log(el);
-  amount.value = el;
-}
+  amount.value = el[0];
+  dateLabel.value = movements.value[el[1]].time;
+  console.log(dateLabel.value);
+} */
 </script>
 <template>
   <Layout>
@@ -90,7 +105,7 @@ function select(el) {
         :label="label"
         :total-amount="totalAmount"
         :amount="amount"
-        :date="formattedDate"
+        :date="dateLabel"
       >
         <template #graphic>
           <Graphic :amounts="amounts" @select="select"/>

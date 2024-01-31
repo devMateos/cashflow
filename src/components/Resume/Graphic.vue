@@ -37,11 +37,13 @@ const pointer = ref(0);
 const emit = defineEmits(["select"]);
 
 watch(pointer, (value) => {
-  const index = Math.ceil((value / (300 / props.amounts.length)));
-  if (index < 0 || index > props.amounts.length) return;
-  emit("select", props.amounts[index - 1]);
-  console.log(props.amounts[index - 1]);
-})
+  const total = props.amounts.length;
+  const index = Math.ceil((value * total) / 300) - 1;
+
+  if (index < 0 || index >= total) return;
+
+  emit('select', props.amounts[index], index);
+});
 
 const tap = ({ target, touches }) => {
   showPointer.value = true;
