@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps({
   amounts: {
@@ -22,19 +22,26 @@ const zero = computed(() => {
 });
 
 const points = computed(() => {
-  const total = props.amounts.length - 1;
+  const total = props.amounts.length;
   return props.amounts.reduce((points, amount, i) => {
-    const x = (300 / total) * i;
+    const x = (300 / total) * (i + 1);
     const y = amountToPixels(amount);
 
     return `${points} ${x},${y}`;
-  }, "")
+  }, `0, ${amountToPixels(props.amounts.length ? props.amounts[0] : 0)}`)
 });
 
 const showPointer = ref(false);
 const pointer = ref(0);
 
 const emit = defineEmits(["select"]);
+
+watch(pointer, (value) => {
+  const index = Math.ceil((value / (300 / props.amounts.length)));
+  if (index < 0 || index > props.amounts.length) return;
+  emit("select", props.amounts[index - 1]);
+  console.log(props.amounts[index - 1]);
+})
 
 const tap = ({ target, touches }) => {
   showPointer.value = true;
@@ -43,6 +50,7 @@ const tap = ({ target, touches }) => {
   const touchX = touches[0].clientX;
   pointer.value = ((touchX - elementX) * 300) / elementWidth;
 }
+
 
 const untap = () => {
   showPointer.value = false;

@@ -9,7 +9,7 @@ import Graphic from './Resume/Graphic.vue';
 import { computed, onMounted, ref } from 'vue'
 
 /* Amount & label */
-let amount = null;
+let amount = ref(null);
 let label = null;
 
 /* Date */
@@ -34,7 +34,7 @@ const amounts = computed(() => {
     .map(m => m.amount);
 
     return lastDays.map((m, i) => {
-      const lastMovements = lastDays.slice(0, i);
+      const lastMovements = lastDays.slice(0, i + 1);
 
       return lastMovements.reduce((sum, movement) => {
         return sum + movement;
@@ -44,7 +44,6 @@ const amounts = computed(() => {
 
 const totalAmount = computed(() => {
   return movements.value.reduce((sum, m) => {
-    console.log(m.amount);
     return sum + m.amount;
   }, 0);
 });
@@ -76,6 +75,10 @@ function save() {
   localStorage.setItem("movements", JSON.stringify(movements.value));
 }
 
+function select(el) {
+  console.log(el);
+  amount.value = el;
+}
 </script>
 <template>
   <Layout>
@@ -90,7 +93,7 @@ function save() {
         :date="formattedDate"
       >
         <template #graphic>
-          <Graphic :amounts="amounts"/>
+          <Graphic :amounts="amounts" @select="select"/>
         </template>
         <template #action>
           <Action @create="create"/>
