@@ -14,11 +14,11 @@ let label = null;
 
 /* Date */
 let todayDate = new Date();
-let day = ('0' + todayDate.getDate()).slice(-2);
-let month = ('0' + (todayDate.getMonth() + 1)).slice(-2);
-let year = todayDate.getFullYear();
-
-let formattedDate = `${day}/${month}/${year}`;
+let formattedDate = todayDate.toLocaleString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+});
 
 let dateLabel = ref(formattedDate);
 /* movements */
@@ -79,7 +79,7 @@ function save() {
 const select = (selectedAmount, index) => {
   amount.value = selectedAmount;
 
-  const dateString = movements.value[index].time.toLocaleString('en-GB', {
+  const dateString = movements.value[index].time.toLocaleString('es-ES', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -88,12 +88,6 @@ const select = (selectedAmount, index) => {
   console.log(amount.value, dateLabel.value);
 };
 
-/* function select(el) {
-  console.log(el);
-  amount.value = el[0];
-  dateLabel.value = movements.value[el[1]].time;
-  console.log(dateLabel.value);
-} */
 </script>
 <template>
   <Layout>
